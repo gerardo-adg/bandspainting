@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Free Painting Estimate | B&amp;S Painting Inc</title>
+<meta name="description" content="Get your free painting estimate from B&S Painting Inc. Takes less than 60 seconds.">
+<meta name="theme-color" content="#0f1b2d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script>
+/* ================== CONFIG: edit these ================== */
+window.FUNNEL_CONFIG = {
+  businessName: "B&S Painting Inc",
+  serviceArea:  "Serving Your Local Area",   // e.g. "Sacramento & Surrounding Areas"
+  phone:        "",                          // e.g. "(916) 555-1234" (shown on thank-you screen)
+  metaPixelId:  "",                          // e.g. "123456789012345"
+  webhookUrl:   ""                           // optional: GoHighLevel / Zapier / Make webhook
+};
+/* ======================================================== */
+</script>
+
+<!-- Meta Pixel (only loads when metaPixelId is set) -->
+<script>
+(function(){
+  var id = window.FUNNEL_CONFIG.metaPixelId;
+  if(!id) return;
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', id);
+  fbq('track', 'PageView');
+})();
+</script>
+
+<style>
+  :root{
+    --bg-1:#0f1b2d;        /* page background (dark) */
+    --bg-2:#1d3352;
+    --accent:#e0a234;      /* brand accent — swap to match logo */
+    --accent-ink:#1a1305;
+    --card:#ffffff;
+    --ink:#121826;
+    --muted:#5b6475;
+    --line:#e3e7ee;
+    --option:#f6f7fa;
+    --radius:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    color:#fff;min-height:100vh;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, rgba(224,162,52,.18), transparent 60%),
+      radial-gradient(900px 500px at 100% 100%, rgba(255,255,255,.06), transparent 60%),
+      linear-gradient(160deg,var(--bg-2),var(--bg-1) 60%);
+    background-attachment:fixed;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 16px 40px;text-align:center}
+  .logo{display:inline-flex;align-items:center;justify-content:center;min-height:56px;margin-bottom:22px}
+  .logo img{max-height:84px;max-width:240px;display:block}
+  .logo-text{font-weight:800;font-size:22px;letter-spacing:.02em}
+  .logo-text span{color:var(--accent)}
+  .eyebrow{color:var(--accent);font-weight:700;font-size:15px;margin-bottom:10px}
+  h1{font-size:clamp(30px,7vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.02em}
+  h1 em{font-style:normal;color:var(--accent)}
+  .sub{margin-top:12px;font-size:17px;color:rgba(255,255,255,.8)}
+
+  .card{
+    background:var(--card);color:var(--ink);border-radius:var(--radius);
+    margin-top:28px;padding:26px 22px 22px;text-align:left;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+  }
+  @media (min-width:560px){.card{padding:32px 34px 26px}}
+  .progress-top{display:flex;justify-content:space-between;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+  .bar{height:6px;background:var(--line);border-radius:99px;margin:10px 0 24px;overflow:hidden}
+  .bar i{display:block;height:100%;width:33%;background:var(--accent);border-radius:99px;transition:width .4s ease}
+
+  .step{display:none;animation:fade .35s ease}
+  .step.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .q{font-size:clamp(22px,5vw,27px);font-weight:800;line-height:1.2;text-align:center;letter-spacing:-.01em}
+  .hint{text-align:center;color:var(--muted);margin:6px 0 20px;font-size:15px}
+
+  .options{display:grid;gap:12px}
+  .opt{
+    display:flex;align-items:center;gap:14px;width:100%;
+    padding:16px 18px;min-height:62px;border-radius:14px;
+    border:2px solid var(--line);background:var(--option);
+    font:inherit;font-size:17px;font-weight:700;color:var(--ink);text-align:left;cursor:pointer;
+    transition:border-color .15s,background .15s,transform .1s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .opt:hover{border-color:var(--accent);background:#fff}
+  .opt:active{transform:scale(.99)}
+  .opt.selected{border-color:var(--accent);background:#fff8ea}
+  .opt .ico{font-size:24px;width:30px;text-align:center;flex:none}
+  .opt .lbl{flex:1}
+  .opt .dot{width:22px;height:22px;border-radius:50%;border:2px solid #c3c9d4;flex:none;position:relative}
+  .opt.selected .dot{border-color:var(--accent)}
+  .opt.selected .dot::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--accent)}
+
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:14px;font-weight:700;margin-bottom:6px}
+  .field input{
+    width:100%;padding:15px 16px;font:inherit;font-size:17px;color:var(--ink);
+    border:2px solid var(--line);border-radius:12px;background:#fff;outline:none;
+  }
+  .field input:focus{border-color:var(--accent)}
+  .field input.err{border-color:#d93c3c}
+  .error{color:#d93c3c;font-size:13px;margin-top:5px;display:none}
+  .field.has-err .error{display:block}
+  .row{display:grid;gap:14px}
+  @media (min-width:520px){.row{grid-template-columns:1fr 1fr}}
+
+  .cta{
+    width:100%;margin-top:6px;padding:18px;border:0;border-radius:14px;cursor:pointer;
+    background:var(--accent);color:var(--accent-ink);font:inherit;font-size:18px;font-weight:800;
+    box-shadow:0 10px 24px -10px rgba(224,162,52,.8);transition:filter .15s;
+  }
+  .cta:hover{filter:brightness(1.05)}
+  .cta[disabled]{opacity:.7;cursor:wait}
+  .back{
+    display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:none;border:0;
+    font:inherit;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;
+  }
+  .consent{margin-top:14px;font-size:12px;line-height:1.5;color:var(--muted);text-align:center}
+
+  .done{text-align:center;padding:10px 0 6px}
+  .check{width:72px;height:72px;border-radius:50%;background:#e8f7ee;color:#1f9d55;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:38px;font-weight:800}
+  .done p{color:var(--muted);font-size:16px;line-height:1.55;margin-top:10px}
+  .call{display:inline-block;margin-top:20px;padding:15px 26px;border-radius:14px;background:var(--ink);color:#fff;
+    text-decoration:none;font-weight:800;font-size:17px}
+
+  .trust{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;margin-top:26px;
+    font-size:14px;font-weight:600;color:rgba(255,255,255,.88)}
+  .trust span{display:inline-flex;align-items:center;gap:7px}
+  .stars{color:var(--accent);letter-spacing:1px}
+  footer{margin-top:30px;font-size:12px;color:rgba(255,255,255,.5)}
+  .hp{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="logo">
+    <!-- Drop the client logo at assets/logo.png. Text fallback shows until then. -->
+    <img src="assets/logo.png" alt="B&amp;S Painting Inc" onerror="this.replaceWith(document.getElementById('logoText').content.cloneNode(true))">
+    <template id="logoText"><div class="logo-text">B&amp;S <span>PAINTING</span> INC</div></template>
+  </div>
+
+  <div class="eyebrow" id="area"></div>
+  <h1>Get Your Free<br><em>Painting Estimate</em></h1>
+  <p class="sub">Takes less than 60 seconds.</p>
+
+  <section class="card" aria-live="polite">
+    <div id="progressWrap">
+      <div class="progress-top"><span id="stepLabel">Step 1 of 3</span><span id="pct">33%</span></div>
+      <div class="bar"><i id="barFill"></i></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step active" data-step="1">
+      <h2 class="q">What do you need painted?</h2>
+      <p class="hint">Tap one to continue</p>
+      <div class="options" data-name="project">
+        <button class="opt" type="button" data-value="Interior"><span class="ico">🛋️</span><span class="lbl">Interior</span><span class="dot"></span></button>
+        <button class="opt" type="button" data-value="Exterior"><span class="ico">🏡</span><span class="lbl">Exterior</span><span class="dot"></span></button>
+        <button class="opt" type="button" data-value="Interior & Exterior"><span class="ico">🎨</span><span class="lbl">Both Interior &amp; Exterior</span><span class="dot"></span></button>
+        <button class="opt" type="button" data-value="Cabinets"><span class="ico">🚪</span><span class="lbl">Cabinets</span><span class="dot"></span></button>
+        <button class="opt" type="button" data-value="Other"><span class="ico">🖌️</span><span class="lbl">Something Else</span><span class="dot"></span></button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" data-step="2">
+      <h2 class="q">When are you looking to get started?</h2>
+      <p class="hint">Tap one to continue</p>
+      <div class="options" data-name="timeline">
+        <button class="opt" type="button" data-value="ASAP"><span class="ico">⚡</span><span class="lbl">As soon as possible</span><span class="dot"></span></button>
+        <button class="opt" type="button" data-value="Within 1 month"><span class="ico">📅</span><span class="lbl">Within the next month</span><span class="dot"></span></button>
+        <button class="opt" type="button" data-value="1-3 months"><span class="ico">🗓️</span><span class="lbl">In 1–3 months</span><span class="dot"></span></button>
+        <button class="opt" type="button" data-value="Just getting prices"><span class="ico">💬</span><span class="lbl">Just getting prices</span><span class="dot"></span></button>
+      </div>
+      <button class="back" type="button" data-back>← Back</button>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" data-step="3">
+      <h2 class="q">Where should we send your free estimate?</h2>
+      <p class="hint">We'll reach out shortly to confirm the details.</p>
+      <form id="leadForm" name="painting-quote" method="POST" data-netlify="true" netlify-honeypot="company" novalidate>
+        <input type="hidden" name="form-name" value="painting-quote">
+        <input type="hidden" name="project">
+        <input type="hidden" name="timeline">
+        <input type="hidden" name="utm_source"><input type="hidden" name="utm_medium">
+        <input type="hidden" name="utm_campaign"><input type="hidden" name="utm_content">
+        <input type="hidden" name="fbclid">
+        <p class="hp"><label>Company <input name="company" tabindex="-1" autocomplete="off"></label></p>
+
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" name="name" autocomplete="name" placeholder="John Smith">
+          <div class="error">Please enter your name.</div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 555-5555">
+            <div class="error">Please enter a valid 10-digit phone number.</div>
+          </div>
+          <div class="field">
+            <label for="zip">ZIP code</label>
+            <input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="95814">
+            <div class="error">Please enter a 5-digit ZIP.</div>
+          </div>
+        </div>
+        <button class="cta" type="submit">Get My Free Estimate →</button>
+        <p class="consent">By submitting, you agree to be contacted by <span class="biz"></span> by phone or text about your request. No spam, ever.</p>
+      </form>
+      <div style="text-align:center"><button class="back" type="button" data-back>← Back</button></div>
+    </div>
+
+    <!-- THANK YOU -->
+    <div class="step" data-step="done">
+      <div class="done">
+        <div class="check">✓</div>
+        <h2 class="q">You're all set, <span id="firstName">friend</span>!</h2>
+        <p>Thanks for reaching out to <span class="biz"></span>. A member of our team will contact you shortly to schedule your <strong>free estimate</strong>.</p>
+        <a class="call" id="callBtn" href="#" hidden>📞 Call Us Now</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust">
+    <span><span class="stars">★★★★★</span> 5-Star Rated</span>
+    <span>🛡️ Licensed &amp; Insured</span>
+    <span>💲 Free Estimates</span>
+    <span>✔ Satisfaction Guaranteed</span>
+  </div>
+
+  <footer>© <span id="yr"></span> <span class="biz"></span>. All rights reserved.</footer>
+</main>
+
+<script>
+(function(){
+  var C = window.FUNNEL_CONFIG;
+  var $ = function(s,c){return (c||document).querySelector(s)};
+  var $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var form = $('#leadForm');
+  var answers = {};
+  var current = 1;
+
+  $$('.biz').forEach(function(el){el.textContent = C.businessName});
+  $('#area').textContent = C.serviceArea || '';
+  $('#yr').textContent = new Date().getFullYear();
+
+  // UTM / fbclid capture
+  var qs = new URLSearchParams(location.search);
+  ['utm_source','utm_medium','utm_campaign','utm_content','fbclid'].forEach(function(k){
+    if(qs.get(k)) form.elements[k].value = qs.get(k);
+  });
+
+  function track(evt, data){ if(window.fbq) fbq('track', evt, data||{}); }
+
+  function show(step){
+    current = step;
+    $$('.step').forEach(function(s){ s.classList.toggle('active', s.dataset.step == String(step)); });
+    if(step === 'done'){ $('#progressWrap').style.display='none'; }
+    else{
+      var pct = Math.round(step/3*100);
+      $('#stepLabel').textContent = 'Step '+step+' of 3';
+      $('#pct').textContent = pct+'%';
+      $('#barFill').style.width = pct+'%';
+    }
+    var card = $('.card');
+    if(card.getBoundingClientRect().top < 0) card.scrollIntoView({behavior:'smooth'});
+  }
+
+  $$('.options').forEach(function(group){
+    group.addEventListener('click', function(e){
+      var btn = e.target.closest('.opt'); if(!btn) return;
+      $$('.opt', group).forEach(function(b){b.classList.remove('selected')});
+      btn.classList.add('selected');
+      answers[group.dataset.name] = btn.dataset.value;
+      form.elements[group.dataset.name].value = btn.dataset.value;
+      setTimeout(function(){ show(current+1); if(current===3) $('#name').focus({preventScroll:true}); }, 220);
+    });
+  });
+  $$('[data-back]').forEach(function(b){ b.addEventListener('click', function(){ show(current-1); }); });
+
+  // Phone formatting
+  var phone = $('#phone');
+  phone.addEventListener('input', function(){
+    var d = phone.value.replace(/\D/g,'').replace(/^1/,'').slice(0,10);
+    var out = d;
+    if(d.length>6) out='('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6);
+    else if(d.length>3) out='('+d.slice(0,3)+') '+d.slice(3);
+    else if(d.length>0) out='('+d;
+    phone.value = out;
+  });
+  $('#zip').addEventListener('input', function(e){ e.target.value = e.target.value.replace(/\D/g,'').slice(0,5); });
+
+  function check(id, ok){
+    var input = $('#'+id), f = input.closest('.field');
+    input.classList.toggle('err', !ok); f.classList.toggle('has-err', !ok);
+    return ok;
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var okName  = check('name',  form.elements.name.value.trim().length >= 2);
+    var okPhone = check('phone', form.elements.phone.value.replace(/\D/g,'').length === 10);
+    var okZip   = check('zip',   /^\d{5}$/.test(form.elements.zip.value));
+    if(!(okName && okPhone && okZip)) return;
+
+    var btn = $('.cta'); btn.disabled = true; btn.textContent = 'Sending…';
+    var data = new FormData(form);
+    var payload = {}; data.forEach(function(v,k){ payload[k]=v; });
+    payload.submitted_at = new Date().toISOString();
+    payload.page_url = location.href;
+
+    var jobs = [];
+    // Netlify Forms (works automatically when hosted on Netlify)
+    jobs.push(fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:new URLSearchParams(data).toString()}).catch(function(){}));
+    // Optional webhook (GHL / Zapier / Make)
+    if(C.webhookUrl){
+      jobs.push(fetch(C.webhookUrl, {method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload)}).catch(function(){}));
+    }
+    Promise.all(jobs).then(function(){
+      track('Lead', {content_name: payload.project, content_category: payload.timeline});
+      $('#firstName').textContent = payload.name.trim().split(/\s+/)[0];
+      if(C.phone){
+        var cb = $('#callBtn'); cb.hidden = false;
+        cb.href = 'tel:'+C.phone.replace(/[^\d+]/g,''); cb.textContent = '📞 Call Us Now: '+C.phone;
+      }
+      show('done');
+    });
+  });
+})();
+</script>
+</body>
+</html>
