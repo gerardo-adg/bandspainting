@@ -1,13 +1,29 @@
 # B&S Painting Inc — Quiz Funnel
 
-A 3-step quiz funnel built for Meta ads traffic. It's a single static page with no build step.
+A 3-step quiz funnel for Meta ads traffic, built with [Astro](https://astro.build). It outputs a fast static site.
 
-## Setup
-1. **Logo:** add the logo at `assets/logo.png`. A text logo shows until then.
-2. **Config:** edit `FUNNEL_CONFIG` at the top of `index.html`: service area, phone, Meta Pixel ID and an optional webhook URL.
-3. **Brand colors:** change `--accent` and `--bg-1` / `--bg-2` in `:root`.
-4. **Deploy:** connect this repo to Netlify. Leads come in under **Netlify → Forms → painting-quote**. You can also send them to GoHighLevel or Zapier through `webhookUrl`.
+## Edit the funnel
+Everything you'd normally change is in **`src/site.config.ts`**: business name, service area, phone, Meta Pixel ID, webhook URL and trust points.
+
+| What | Where |
+|---|---|
+| Quiz questions and answers | `src/components/Quiz.astro` |
+| Headline, hero and "How it works" | `src/pages/index.astro` |
+| Brand colors and fonts | `src/layouts/Base.astro` (`:root`) |
+| Photos | `src/assets/photos/` (Unsplash license, free for commercial use) |
+| Logo | `src/assets/logo.png` |
+
+## Run locally
+```bash
+npm install
+npm run dev
+```
+
+## Deploy (Netlify)
+Connect this repo in Netlify. `netlify.toml` already sets the build command (`npm run build`) and the publish folder (`dist`).
+Leads show up under **Netlify → Forms → painting-quote**. Turn on form notifications there to get email alerts.
+To send leads to GoHighLevel or Zapier as well, set `webhookUrl`.
 
 ## Tracking
-- `PageView` fires on load and `Lead` fires on submit (once the Pixel ID is set).
+- Meta Pixel `PageView` fires on load and `Lead` fires on submit (once `metaPixelId` is set).
 - UTM parameters and `fbclid` are saved with each lead.

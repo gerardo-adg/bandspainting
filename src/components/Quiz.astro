@@ -1,0 +1,327 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '../site.config';
+import interior from '../assets/photos/interior.jpg';
+import exterior from '../assets/photos/exterior.jpg';
+import cabinets from '../assets/photos/cabinets.jpg';
+import both from '../assets/photos/both.jpg';
+
+const projects = [
+  { value: 'Interior', label: 'Interior', img: interior },
+  { value: 'Exterior', label: 'Exterior', img: exterior },
+  { value: 'Interior & Exterior', label: 'Interior & Exterior', img: both },
+  { value: 'Cabinets', label: 'Cabinets', img: cabinets },
+];
+
+const timelines = [
+  { value: 'ASAP', label: 'As soon as possible', sub: 'Ready to get on the schedule', icon: 'bolt' },
+  { value: 'Within 1 month', label: 'Within the next month', sub: 'Planning ahead', icon: 'cal' },
+  { value: '1-3 months', label: 'In 1–3 months', sub: 'Getting things lined up', icon: 'clock' },
+  { value: 'Just getting prices', label: 'Just comparing prices', sub: 'Exploring my options', icon: 'chat' },
+];
+
+const icons: Record<string, string> = {
+  bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>',
+  cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  chat: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/>',
+};
+
+const config = JSON.stringify({
+  businessName: site.businessName,
+  phone: site.phone,
+  webhookUrl: site.webhookUrl,
+});
+const tel = site.phone.replace(/[^\d+]/g, '');
+---
+<div class="quiz" id="quiz" data-config={config}>
+  <div class="progress" id="progress" aria-hidden="true">
+    <div class="seg is-on" data-seg="1"><span>Project</span><i></i></div>
+    <div class="seg" data-seg="2"><span>Timeline</span><i></i></div>
+    <div class="seg" data-seg="3"><span>Contact</span><i></i></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <section class="step is-active" data-step="1">
+    <h2 class="q">What would you like painted?</h2>
+    <div class="tiles" data-name="project" role="radiogroup" aria-label="Project type">
+      {projects.map((p, i) => (
+        <button type="button" class="tile" data-value={p.value} role="radio" aria-checked="false">
+          <Image src={p.img} alt="" widths={[280, 480]} sizes="(min-width: 560px) 240px, 45vw" loading={i < 2 ? 'eager' : 'lazy'} />
+          <span class="tile-label">{p.label}</span>
+          <span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>
+        </button>
+      ))}
+    </div>
+    <div class="options-inline" data-name="project">
+      <button type="button" class="link-opt" data-value="Other">Something else (decks, fences, commercial…) →</button>
+    </div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="step" data-step="2">
+    <h2 class="q">When would you like to get started?</h2>
+    <div class="list" data-name="timeline" role="radiogroup" aria-label="Timeline">
+      {timelines.map((t) => (
+        <button type="button" class="row" data-value={t.value} role="radio" aria-checked="false">
+          <span class="ico"><svg viewBox="0 0 24 24" set:html={icons[t.icon]} /></span>
+          <span class="txt"><strong>{t.label}</strong><small>{t.sub}</small></span>
+          <span class="radio" aria-hidden="true"></span>
+        </button>
+      ))}
+    </div>
+    <button type="button" class="back" data-back>← Back</button>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="step" data-step="3">
+    <h2 class="q">Where should we send your free estimate?</h2>
+    <form id="leadForm" name="painting-quote" method="POST" data-netlify="true" netlify-honeypot="company" novalidate>
+      <input type="hidden" name="form-name" value="painting-quote" />
+      <input type="hidden" name="project" />
+      <input type="hidden" name="timeline" />
+      <input type="hidden" name="utm_source" /><input type="hidden" name="utm_medium" />
+      <input type="hidden" name="utm_campaign" /><input type="hidden" name="utm_content" />
+      <input type="hidden" name="fbclid" />
+      <p class="hp"><label>Company <input name="company" tabindex="-1" autocomplete="off" /></label></p>
+
+      <div class="field">
+        <label for="name">Full name</label>
+        <input id="name" name="name" autocomplete="name" placeholder="John Smith" />
+        <p class="err">Please enter your name.</p>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 555-5555" />
+          <p class="err">Enter a valid 10-digit number.</p>
+        </div>
+        <div class="field">
+          <label for="zip">ZIP code</label>
+          <input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="95825" />
+          <p class="err">Enter a 5-digit ZIP.</p>
+        </div>
+      </div>
+      <button class="cta" type="submit"><span>Get My Free Estimate</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <p class="secure"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Your information is secure and never shared.</p>
+      <p class="consent">By submitting, you agree to be contacted by {site.businessName} by phone or text about your request.</p>
+    </form>
+    <button type="button" class="back" data-back>← Back</button>
+  </section>
+
+  <!-- THANK YOU -->
+  <section class="step done" data-step="done">
+    <div class="check"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></div>
+    <h2 class="q">You're all set, <span id="firstName">friend</span>.</h2>
+    <p class="done-sub">Thanks for choosing {site.businessName}. Here's what happens next:</p>
+    <ol class="next">
+      <li><b>1</b><div><strong>We review your project</strong><span>Our team looks over your answers.</span></div></li>
+      <li><b>2</b><div><strong>We give you a call</strong><span>Usually within one business day.</span></div></li>
+      <li><b>3</b><div><strong>Free on-site estimate</strong><span>Clear, upfront pricing. No pressure.</span></div></li>
+    </ol>
+    {tel && <a class="call" href={`tel:${tel}`}>Call us now · {site.phone}</a>}
+  </section>
+</div>
+
+<style>
+  .quiz{position:relative}
+  .progress{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:22px}
+  .seg span{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9aa3b2;margin-bottom:8px;transition:color .3s}
+  .seg i{display:block;height:4px;border-radius:99px;background:var(--line);overflow:hidden;position:relative}
+  .seg i::after{content:"";position:absolute;inset:0;background:var(--brand);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+  .seg.is-on span{color:var(--brand)}
+  .seg.is-on i::after{transform:scaleX(1)}
+  .quiz.is-done .progress{display:none}
+
+  .step{display:none}
+  .step.is-active{display:block;animation:rise .4s cubic-bezier(.2,.7,.2,1)}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
+  .q{font-family:var(--serif);font-weight:600;font-size:clamp(24px,5.6vw,30px);line-height:1.15;letter-spacing:-.01em;margin:0 0 20px}
+
+  /* photo tiles */
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .tile{position:relative;aspect-ratio:1/1;border-radius:16px;overflow:hidden;border:0;padding:0;cursor:pointer;background:#ddd;
+    box-shadow:0 0 0 1px rgba(13,22,38,.08);transition:transform .2s, box-shadow .2s;-webkit-tap-highlight-color:transparent}
+  @media (min-width:560px){.tile{aspect-ratio:4/3.4}}
+  .tile img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,23,43,0) 40%,rgba(7,23,43,.85))}
+  .tile-label{position:absolute;left:14px;right:14px;bottom:12px;z-index:1;color:#fff;font-weight:700;font-size:16px;text-align:left;line-height:1.2}
+  .tick{position:absolute;top:10px;right:10px;z-index:1;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.9);
+    display:grid;place-items:center;opacity:0;transform:scale(.6);transition:all .2s}
+  .tick svg{width:16px;height:16px;fill:none;stroke:var(--brand);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+  .tile:hover img{transform:scale(1.05)}
+  .tile:hover{box-shadow:0 0 0 2px var(--brand),0 12px 24px -12px rgba(0,99,172,.5)}
+  .tile.is-selected{box-shadow:0 0 0 3px var(--brand),0 12px 24px -12px rgba(0,99,172,.6)}
+  .tile.is-selected .tick{opacity:1;transform:none}
+  .options-inline{text-align:center;margin-top:16px}
+  .link-opt{background:none;border:0;cursor:pointer;color:var(--muted);font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+  .link-opt:hover{color:var(--brand)}
+
+  /* list rows */
+  .list{display:grid;gap:10px}
+  .row{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 16px;border-radius:14px;cursor:pointer;
+    background:#fff;border:1.5px solid var(--line);transition:border-color .15s, background .15s, box-shadow .15s;-webkit-tap-highlight-color:transparent}
+  .row:hover{border-color:var(--brand);box-shadow:0 8px 20px -14px rgba(0,99,172,.6)}
+  .row.is-selected{border-color:var(--brand);background:var(--brand-50)}
+  .ico{flex:none;width:42px;height:42px;border-radius:12px;background:var(--brand-50);display:grid;place-items:center}
+  .ico svg{width:20px;height:20px;fill:none;stroke:var(--brand);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .txt{flex:1;display:flex;flex-direction:column;gap:2px}
+  .txt strong{font-size:16px;font-weight:700}
+  .txt small{font-size:13px;color:var(--muted)}
+  .radio{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid #c6ccd6;position:relative;transition:border-color .15s}
+  .row.is-selected .radio{border-color:var(--brand)}
+  .row.is-selected .radio::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--brand)}
+
+  /* form */
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:#2a3344}
+  .field input{width:100%;padding:15px 16px;font:inherit;font-size:16px;color:var(--ink);background:#fbfcfd;
+    border:1.5px solid var(--line);border-radius:12px;outline:none;transition:border-color .15s, box-shadow .15s, background .15s}
+  .field input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 4px rgba(0,99,172,.12)}
+  .err{display:none;color:#c93434;font-size:12.5px;margin-top:5px}
+  .field.has-err input{border-color:#c93434}
+  .field.has-err .err{display:block}
+  .grid2{display:grid;gap:0 12px}
+  @media (min-width:480px){.grid2{grid-template-columns:1.3fr 1fr}}
+  .cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:6px;padding:18px;border:0;border-radius:14px;cursor:pointer;
+    background:linear-gradient(180deg,#0a72c2,var(--brand));color:#fff;font-size:17px;font-weight:800;letter-spacing:.01em;
+    box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 14px 28px -12px rgba(0,99,172,.75);transition:transform .15s, filter .15s}
+  .cta:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .cta svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  .cta[disabled]{opacity:.75;cursor:wait;transform:none}
+  .secure{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;font-size:13px;font-weight:600;color:#3d4757}
+  .secure svg{width:15px;height:15px;fill:none;stroke:#1f9d55;stroke-width:2.2}
+  .consent{margin-top:8px;font-size:11.5px;line-height:1.5;color:#8a93a3;text-align:center}
+  .back{display:block;margin:18px auto 0;background:none;border:0;cursor:pointer;font-size:14px;font-weight:600;color:var(--muted)}
+  .back:hover{color:var(--ink)}
+  .hp{position:absolute;left:-9999px}
+
+  /* thank you */
+  .done{text-align:center}
+  .check{width:68px;height:68px;margin:6px auto 16px;border-radius:50%;background:#e7f6ee;display:grid;place-items:center;animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
+  .check svg{width:32px;height:32px;fill:none;stroke:#1f9d55;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+  @keyframes pop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+  .done .q{margin-bottom:8px}
+  .done-sub{color:var(--muted);font-size:15px}
+  .next{list-style:none;text-align:left;margin:22px 0 4px;display:grid;gap:12px}
+  .next li{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:#f6f8fb}
+  .next b{flex:none;width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:13px}
+  .next strong{display:block;font-size:15px}
+  .next span{font-size:13.5px;color:var(--muted)}
+  .call{display:block;margin-top:18px;padding:16px;border-radius:14px;background:var(--navy);color:#fff;text-decoration:none;font-weight:800}
+</style>
+
+<script>
+  type Cfg = { businessName: string; phone: string; webhookUrl: string };
+  declare global { interface Window { fbq?: (...args: unknown[]) => void } }
+
+  const root = document.getElementById('quiz')!;
+  const cfg: Cfg = JSON.parse(root.dataset.config || '{}');
+  const form = document.getElementById('leadForm') as HTMLFormElement;
+  const $$ = <T extends Element>(s: string, c: ParentNode = root) => Array.from(c.querySelectorAll<T>(s));
+  let current: number | 'done' = 1;
+
+  // Carry ad tracking params into the lead
+  const qs = new URLSearchParams(location.search);
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid'].forEach((k) => {
+    const v = qs.get(k);
+    if (v) (form.elements.namedItem(k) as HTMLInputElement).value = v;
+  });
+
+  function show(step: number | 'done') {
+    current = step;
+    $$<HTMLElement>('.step').forEach((s) => s.classList.toggle('is-active', s.dataset.step === String(step)));
+    root.classList.toggle('is-done', step === 'done');
+    if (typeof step === 'number') {
+      $$<HTMLElement>('.seg').forEach((s) => s.classList.toggle('is-on', Number(s.dataset.seg) <= step));
+    }
+    // Keep the active question in view (mostly matters on phones)
+    const card = root.closest('.card') as HTMLElement | null;
+    if (card) {
+      const top = card.getBoundingClientRect().top;
+      if (top < 0 || top > 24) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function choose(name: string, value: string, btn: Element, group: Element) {
+    $$('[data-value]', group.closest('.step')!).forEach((b) => {
+      b.classList.remove('is-selected');
+      b.setAttribute('aria-checked', 'false');
+    });
+    btn.classList.add('is-selected');
+    btn.setAttribute('aria-checked', 'true');
+    (form.elements.namedItem(name) as HTMLInputElement).value = value;
+    const next = (current as number) + 1;
+    setTimeout(() => {
+      show(next);
+      if (next === 3) (document.getElementById('name') as HTMLInputElement).focus({ preventScroll: true });
+    }, 260);
+  }
+
+  $$<HTMLElement>('[data-name]').forEach((group) => {
+    group.addEventListener('click', (e) => {
+      const btn = (e.target as Element).closest<HTMLElement>('[data-value]');
+      if (btn) choose(group.dataset.name!, btn.dataset.value!, btn, group);
+    });
+  });
+  $$('[data-back]').forEach((b) => b.addEventListener('click', () => show((current as number) - 1)));
+
+  // Input helpers
+  const phone = document.getElementById('phone') as HTMLInputElement;
+  phone.addEventListener('input', () => {
+    const d = phone.value.replace(/\D/g, '').replace(/^1/, '').slice(0, 10);
+    phone.value = d.length > 6 ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`
+      : d.length > 3 ? `(${d.slice(0, 3)}) ${d.slice(3)}`
+      : d.length ? `(${d}` : '';
+  });
+  const zip = document.getElementById('zip') as HTMLInputElement;
+  zip.addEventListener('input', () => { zip.value = zip.value.replace(/\D/g, '').slice(0, 5); });
+
+  function check(id: string, ok: boolean) {
+    document.getElementById(id)!.closest('.field')!.classList.toggle('has-err', !ok);
+    return ok;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const val = (k: string) => (form.elements.namedItem(k) as HTMLInputElement).value.trim();
+    const ok = [
+      check('name', val('name').length >= 2),
+      check('phone', val('phone').replace(/\D/g, '').length === 10),
+      check('zip', /^\d{5}$/.test(val('zip'))),
+    ].every(Boolean);
+    if (!ok) return;
+
+    const btn = form.querySelector<HTMLButtonElement>('.cta')!;
+    btn.disabled = true;
+    btn.querySelector('span')!.textContent = 'Sending…';
+
+    const data = new FormData(form);
+    const payload: Record<string, string> = {};
+    data.forEach((v, k) => { if (k !== 'company') payload[k] = String(v); });
+    payload.submitted_at = new Date().toISOString();
+    payload.page_url = location.href;
+
+    const jobs: Promise<unknown>[] = [
+      // Netlify Forms (automatic when hosted on Netlify)
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+      }).catch(() => null),
+    ];
+    if (cfg.webhookUrl) {
+      jobs.push(fetch(cfg.webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }).catch(() => null));
+    }
+    await Promise.all(jobs);
+
+    window.fbq?.('track', 'Lead', { content_name: payload.project, content_category: payload.timeline });
+    document.getElementById('firstName')!.textContent = payload.name.split(/\s+/)[0];
+    show('done');
+  });
+</script>

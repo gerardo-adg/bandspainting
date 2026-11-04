@@ -1,0 +1,132 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Quiz from '../components/Quiz.astro';
+import { site } from '../site.config';
+import logo from '../assets/logo.png';
+import heroImg from '../assets/photos/hero.jpg';
+
+const heroLg = await getImage({ src: heroImg, width: 1920, format: 'webp', quality: 72 });
+const heroSm = await getImage({ src: heroImg, width: 900, format: 'webp', quality: 70 });
+const tel = site.phone.replace(/[^\d+]/g, '');
+
+const steps = [
+  { t: 'Answer 3 quick questions', d: 'Tell us about your project. It takes less than a minute.' },
+  { t: 'We call to schedule', d: 'A friendly member of our team reaches out to set up a visit.' },
+  { t: 'Get your free estimate', d: 'Clear, detailed pricing for your project. No pressure, no obligation.' },
+];
+---
+<Base title={`Free Painting Estimate | ${site.businessName}`} description={`Get a free painting estimate from ${site.businessName}. ${site.serviceArea}. Takes less than 60 seconds.`}>
+  <header class="topbar">
+    <div class="topbar-in">
+      <Image src={logo} alt={site.businessName} height={72} densities={[1, 2]} class="logo" loading="eager" />
+      {tel && (
+        <a class="top-call" href={`tel:${tel}`}>
+          <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>
+          <span>{site.phone}</span>
+        </a>
+      )}
+    </div>
+  </header>
+
+  <section class="hero" style={`--hero-lg:url(${heroLg.src});--hero-sm:url(${heroSm.src})`}>
+    <div class="hero-in">
+      <div class="pitch">
+        <p class="pill"><span class="dot"></span>{site.serviceArea}</p>
+        <h1>Get Your Free <em>Painting Estimate</em></h1>
+        <p class="lead">3 quick questions · Less than 60 seconds</p>
+        <ul class="trust">
+          {site.trust.map((t) => (
+            <li><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>{t}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="card" id="start">
+        <Quiz />
+      </div>
+    </div>
+  </section>
+
+  <section class="how">
+    <div class="how-in">
+      <p class="eyebrow">How it works</p>
+      <h2>A beautiful finish, without the hassle.</h2>
+      <ol>
+        {steps.map((s, i) => (
+          <li>
+            <span class="num">0{i + 1}</span>
+            <h3>{s.t}</h3>
+            <p>{s.d}</p>
+          </li>
+        ))}
+      </ol>
+      <a class="again" href="#start">Start my free estimate</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>© {new Date().getFullYear()} {site.businessName} · {site.serviceArea}</p>
+    {tel && <p><a href={`tel:${tel}`}>{site.phone}</a></p>}
+  </footer>
+</Base>
+
+<style>
+  .topbar{background:#fff;position:relative;z-index:2;box-shadow:0 1px 0 rgba(13,22,38,.06),0 8px 24px -16px rgba(13,22,38,.4)}
+  .topbar-in{max-width:1180px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:center}
+  .logo{height:54px;width:auto}
+  .top-call{display:none}
+  @media (min-width:900px){
+    .topbar-in{justify-content:space-between;padding:12px 24px}
+    .logo{height:64px}
+    .top-call{display:inline-flex;align-items:center;gap:10px;padding:11px 18px;border-radius:999px;border:1.5px solid var(--line);
+      text-decoration:none;color:var(--ink);font-weight:700;font-size:15px;transition:border-color .15s,color .15s}
+    .top-call:hover{border-color:var(--brand);color:var(--brand)}
+    .top-call svg{width:16px;height:16px;fill:none;stroke:var(--brand);stroke-width:2}
+  }
+
+  .hero{position:relative;color:#fff;background-color:var(--navy);
+    background-image:linear-gradient(180deg,rgba(7,23,43,.72) 0%,rgba(7,23,43,.86) 45%,rgba(7,23,43,.97) 100%),var(--hero-sm);
+    background-size:cover;background-position:center 30%}
+  @media (min-width:900px){
+    .hero{background-image:linear-gradient(90deg,rgba(7,23,43,.92) 0%,rgba(7,23,43,.7) 45%,rgba(7,23,43,.45) 100%),var(--hero-lg)}
+  }
+  .hero-in{max-width:1180px;margin:0 auto;padding:26px 16px 44px;display:grid;gap:22px}
+  @media (min-width:900px){
+    .hero-in{grid-template-columns:1fr 540px;align-items:center;gap:56px;padding:72px 24px 88px;min-height:calc(100vh - 88px)}
+  }
+
+  .pitch{text-align:center}
+  @media (min-width:900px){.pitch{text-align:left}}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.02em;
+    background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px)}
+  .dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 4px rgba(74,222,128,.2)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(36px,9vw,66px);line-height:1.02;letter-spacing:-.02em;margin:16px 0 0}
+  h1 em{display:block;font-style:italic;font-weight:500;color:var(--sky)}
+  .lead{margin-top:12px;font-size:clamp(16px,4vw,19px);color:rgba(255,255,255,.82)}
+  .trust{list-style:none;display:none;margin-top:30px;gap:12px}
+  .trust li{display:flex;align-items:center;gap:12px;font-weight:600;font-size:16px;color:rgba(255,255,255,.92)}
+  .trust svg{flex:none;width:22px;height:22px;padding:4px;border-radius:50%;background:var(--brand);fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+  @media (min-width:900px){.trust{display:grid}}
+
+  .card{background:#fff;color:var(--ink);border-radius:24px;padding:22px 18px 22px;scroll-margin-top:12px;
+    box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 80px -30px rgba(0,0,0,.65)}
+  @media (min-width:480px){.card{padding:30px 28px 26px}}
+
+  .how{background:var(--cream);padding:64px 16px 72px}
+  .how-in{max-width:1080px;margin:0 auto;text-align:center}
+  .eyebrow{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--brand)}
+  .how h2{font-family:var(--serif);font-weight:600;font-size:clamp(28px,6vw,42px);line-height:1.1;letter-spacing:-.015em;margin-top:10px}
+  .how ol{list-style:none;display:grid;gap:16px;margin-top:36px;text-align:left}
+  @media (min-width:760px){.how ol{grid-template-columns:repeat(3,1fr);gap:20px}}
+  .how li{background:#fff;border-radius:20px;padding:26px 24px;box-shadow:0 1px 0 rgba(13,22,38,.05),0 18px 40px -28px rgba(13,22,38,.35)}
+  .num{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--brand)}
+  .how h3{font-size:18px;font-weight:800;margin-top:10px}
+  .how li p{color:var(--muted);margin-top:6px;line-height:1.55;font-size:15px}
+  .again{display:inline-block;margin-top:34px;padding:17px 30px;border-radius:14px;background:var(--navy);color:#fff;text-decoration:none;font-weight:800;
+    box-shadow:0 14px 28px -14px rgba(7,23,43,.7);transition:transform .15s}
+  .again:hover{transform:translateY(-1px)}
+
+  .foot{background:var(--navy);color:rgba(255,255,255,.55);text-align:center;font-size:13px;padding:28px 16px calc(28px + env(safe-area-inset-bottom));display:grid;gap:6px}
+  .foot a{color:rgba(255,255,255,.8);text-decoration:none}
+</style>
