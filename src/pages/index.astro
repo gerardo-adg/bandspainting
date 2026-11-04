@@ -11,12 +11,12 @@ const heroSm = await getImage({ src: heroImg, width: 900, format: 'webp', qualit
 const tel = site.phone.replace(/[^\d+]/g, '');
 
 const steps = [
-  { t: 'Answer 3 quick questions', d: 'Tell us about your project. It takes less than a minute.' },
+  { t: 'Answer 3 quick questions', d: 'Tell us what you need. It takes less than a minute.' },
   { t: 'We call to schedule', d: 'A friendly member of our team reaches out to set up a visit.' },
   { t: 'Get your free estimate', d: 'Clear, detailed pricing for your project. No pressure, no obligation.' },
 ];
 ---
-<Base title={`Free Painting Estimate | ${site.businessName}`} description={`Get a free painting estimate from ${site.businessName}. ${site.serviceArea}. Takes less than 60 seconds.`}>
+<Base title={`Free Painting Estimate | ${site.businessName}`} description={`Free estimates on painting, staining, dry rot, siding, decking & drywall repair from ${site.businessName}. ${site.serviceArea}. Takes less than 60 seconds.`}>
   <header class="topbar">
     <div class="topbar-in">
       <Image src={logo} alt={site.businessName} height={72} densities={[1, 2]} class="logo" loading="eager" />
@@ -34,7 +34,7 @@ const steps = [
       <div class="pitch">
         <p class="pill"><span class="dot"></span>{site.serviceArea}</p>
         <h1>Get Your Free <em>Painting Estimate</em></h1>
-        <p class="lead">3 quick questions · Less than 60 seconds</p>
+        <p class="lead">Painting, staining &amp; repairs · 3 quick questions</p>
         <ul class="trust">
           {site.trust.map((t) => (
             <li><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>{t}</li>

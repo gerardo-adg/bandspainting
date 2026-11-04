@@ -7,10 +7,10 @@ Everything you'd normally change is in **`src/site.config.ts`**: business name, 
 
 | What | Where |
 |---|---|
-| Quiz questions and answers | `src/components/Quiz.astro` |
+| Services, questions and answers | `src/components/Quiz.astro` |
 | Headline, hero and "How it works" | `src/pages/index.astro` |
 | Brand colors and fonts | `src/layouts/Base.astro` (`:root`) |
-| Photos | `src/assets/photos/` (Unsplash license, free for commercial use) |
+| Hero photo | `src/assets/photos/hero.jpg` (Unsplash license, free for commercial use) |
 | Logo | `src/assets/logo.png` |
 
 ## Run locally
