@@ -5,9 +5,7 @@ const services = [
   { value: 'Exterior Painting', label: 'Exterior Painting', sub: 'Siding, trim & doors', icon: 'house' },
   { value: 'Interior Painting', label: 'Interior Painting', sub: 'Walls, ceilings & trim', icon: 'roller' },
   { value: 'Staining', label: 'Staining', sub: 'Decks, fences & wood', icon: 'drop' },
-  { value: 'Dry Rot Repair', label: 'Dry Rot Repair', sub: 'Replace damaged wood', icon: 'hammer' },
   { value: 'Siding & Decking', label: 'Siding & Decking', sub: 'Repair & replacement', icon: 'planks' },
-  { value: 'Drywall Repair', label: 'Drywall Repair', sub: 'Patches, cracks & texture', icon: 'wall' },
 ];
 
 const timelines = [
@@ -23,7 +21,6 @@ const icons: Record<string, string> = {
   drop: '<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/>',
   hammer: '<path d="m15 12-8.4 8.4a2.1 2.1 0 0 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.9-1.9a2 2 0 0 1-.6-1.4V7l-2.3-2.3A6 6 0 0 0 12.5 3H9l.9.8A6.2 6.2 0 0 1 12 8.4V10l2 2h1.2a2 2 0 0 1 1.4.6l1.9 1.9"/>',
   planks: '<path d="M3 5h18M3 10h18M3 15h18M3 20h18"/><path d="M8 5v5M15 10v5M9 15v5"/>',
-  wall: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="m7 6 2.5 3L7 11.5l2.5 3"/><rect x="13" y="13" width="5" height="5" rx="1"/>',
   bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>',
   cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>',
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
@@ -56,9 +53,14 @@ const tel = site.phone.replace(/[^\d+]/g, '');
           <span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>
         </button>
       ))}
-    </div>
-    <div class="options-inline" data-name="project">
-      <button type="button" class="link-opt" data-value="Multiple / Other">Need more than one, or something else? →</button>
+      <button type="button" class="svc svc-wide" data-value="Something Else" role="radio" aria-checked="false">
+        <span class="svc-ico"><svg viewBox="0 0 24 24" set:html={icons.hammer} /></span>
+        <span class="svc-txt">
+          <strong>Something Else</strong>
+          <small>Drywall repair, dry rot repair, multiple projects &amp; more</small>
+        </span>
+        <span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></span>
+      </button>
     </div>
   </section>
 
@@ -140,7 +142,6 @@ const tel = site.phone.replace(/[^\d+]/g, '');
   .step{display:none}
   .step.is-active{display:block;animation:rise .4s cubic-bezier(.2,.7,.2,1)}
   @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  .kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
   .q{font-family:var(--serif);font-weight:600;font-size:clamp(24px,5.6vw,30px);line-height:1.15;letter-spacing:-.01em;margin:0 0 20px}
 
   /* service cards */
@@ -162,9 +163,10 @@ const tel = site.phone.replace(/[^\d+]/g, '');
     display:grid;place-items:center;opacity:0;transform:scale(.6);transition:all .2s}
   .tick svg{width:13px;height:13px;fill:none;stroke:#fff;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
   .svc.is-selected .tick{opacity:1;transform:none}
-  .options-inline{text-align:center;margin-top:16px}
-  .link-opt{background:none;border:0;cursor:pointer;color:var(--muted);font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
-  .link-opt:hover{color:var(--brand)}
+  .svc-wide{grid-column:1/-1;flex-direction:row;align-items:center;gap:14px;padding-right:44px}
+  .svc-wide .svc-ico{margin-bottom:0;flex:none}
+  .svc-txt{display:flex;flex-direction:column;gap:3px}
+  .svc-wide .tick{top:50%;margin-top:-11px}
 
   /* list rows */
   .list{display:grid;gap:10px}
