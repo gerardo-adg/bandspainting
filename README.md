@@ -9,7 +9,7 @@ Everything you'd normally change is in **`src/site.config.ts`**: business name, 
 |---|---|
 | Services, questions and answers | `src/components/Quiz.astro` |
 | Headline, hero and "How it works" | `src/pages/index.astro` |
-| Brand colors and fonts | `src/layouts/Base.astro` (`:root`) |
+| Brand colors and fonts | `src/layouts/Base.astro` (`:root`) — Alfa Slab One (headline), Roboto Slab (titles), Manrope (body) |
 | Hero photo | `src/assets/photos/hero.jpg` (Unsplash license, free for commercial use) |
 | Logo | `src/assets/logo.png` |
 
