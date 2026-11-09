@@ -5,15 +5,17 @@ import award from '../assets/award.png';
 
 interface Props { variant?: 'desktop' | 'mobile' }
 const { variant = 'mobile' } = Astro.props;
-// Desktop: award first, then only the first two trust points.
-const points = variant === 'desktop' ? site.trust.slice(0, 2) : site.trust;
+// Desktop: award first, then the first two trust points. Mobile: award only.
+const points = variant === 'desktop' ? site.trust.slice(0, 2) : [];
 ---
 <div class:list={['proof', variant]}>
-  <ul class="trust">
-    {points.map((t) => (
-      <li><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>{t}</li>
-    ))}
-  </ul>
+  {points.length > 0 && (
+    <ul class="trust">
+      {points.map((t) => (
+        <li><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>{t}</li>
+      ))}
+    </ul>
+  )}
 
   <div class="award">
     <Image src={award} alt="Best of BusinessRate 2025 award plaque: B&S Painting Inc, Painter, Sacramento, California" width={92} densities={[1, 2]} class="plaque" loading="lazy" />
