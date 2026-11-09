@@ -89,6 +89,18 @@ const tel = site.phone.replace(/[^\d+]/g, '');
           <p class="err">Enter a valid 10-digit number.</p>
         </div>
         <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="john@email.com" />
+          <p class="err">Enter a valid email address.</p>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label for="address">Street address</label>
+          <input id="address" name="address" autocomplete="address-line1" placeholder="123 Main St" />
+          <p class="err">Please enter your street address.</p>
+        </div>
+        <div class="field">
           <label for="zip">ZIP code</label>
           <input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="95825" />
           <p class="err">Enter a 5-digit ZIP.</p>
@@ -96,7 +108,7 @@ const tel = site.phone.replace(/[^\d+]/g, '');
       </div>
       <button class="cta" type="submit"><span>Get My Free Estimate</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       <p class="secure"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Your information is secure and never shared.</p>
-      <p class="consent">By submitting, you agree to be contacted by {site.businessName} by phone or text about your request.</p>
+      <p class="consent">By submitting, you agree to be contacted by {site.businessName} by phone, text or email about your request.</p>
     </form>
     <button type="button" class="back" data-back>← Back</button>
   </section>
@@ -300,6 +312,8 @@ const tel = site.phone.replace(/[^\d+]/g, '');
     const ok = [
       check('name', val('name').length >= 2),
       check('phone', val('phone').replace(/\D/g, '').length === 10),
+      check('email', /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val('email'))),
+      check('address', val('address').length >= 5 && /\d/.test(val('address')) && /[a-z]/i.test(val('address'))),
       check('zip', /^\d{5}$/.test(val('zip'))),
     ].every(Boolean);
     if (!ok) return;
