@@ -28,6 +28,7 @@ const points = variant === 'desktop' ? site.trust.slice(0, 2) : site.trust;
 
 <style>
   .proof{display:grid;gap:10px;max-width:520px}
+  .proof.desktop{gap:20px}
   .proof.desktop .award{order:-1}   /* award above the trust points on desktop */
   .trust{list-style:none;display:grid;grid-template-columns:1fr;gap:8px;margin:0;padding:0}
   @media (min-width:480px){.trust{grid-template-columns:1fr 1fr;gap:10px}}
