@@ -3,6 +3,7 @@ import { Image, getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Quiz from '../components/Quiz.astro';
 import Proof from '../components/Proof.astro';
+import Reviews from '../components/Reviews.astro';
 import { site } from '../site.config';
 import logo from '../assets/logo.png';
 import heroImg from '../assets/photos/hero-light.jpg';
@@ -40,6 +41,8 @@ const steps = [
       <div class="proof-mob"><Proof variant="mobile" /></div>
     </div>
   </section>
+
+  <Reviews />
 
   <section class="how">
     <div class="how-in">
