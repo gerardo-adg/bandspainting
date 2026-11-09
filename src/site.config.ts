@@ -10,5 +10,5 @@ export const site = {
   webhookUrl: '',                           // optional GoHighLevel / Zapier / Make webhook
 
   // Trust points — only keep what's true for the client.
-  trust: ['Licensed & Insured', 'Free, No-Obligation Estimates', 'Clean, Respectful Crews', 'Satisfaction Guaranteed'],
+  trust: ['Licensed & Insured', 'Free Estimates', 'Clean, Respectful Crews', 'Satisfaction Guaranteed'],
 };
