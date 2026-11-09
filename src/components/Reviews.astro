@@ -15,7 +15,7 @@ const tints = ['#0063ac', '#0b0f17', '#2f7d4f', '#8a4fbf', '#c2410c', '#0e7490']
           <span class="g" set:html={G} />
           <strong>{rating.score}</strong>
           <span class="stars" aria-label={`${rating.score} out of 5 stars`}>{stars}</span>
-          <span class="count">{rating.count} Google reviews</span>
+          <span class="count">Google reviews</span>
         </a>
       </div>
       <div class="rv-nav">
@@ -45,7 +45,7 @@ const tints = ['#0063ac', '#0b0f17', '#2f7d4f', '#8a4fbf', '#c2410c', '#0e7490']
       {reviews.map(() => <i />)}
     </div>
 
-    <a class="rv-all" href={site.googleReviewsUrl} target="_blank" rel="noopener">See all {rating.count} reviews on Google →</a>
+    <a class="rv-all" href={site.googleReviewsUrl} target="_blank" rel="noopener">See all reviews on Google →</a>
   </div>
 </section>
 
