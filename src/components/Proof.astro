@@ -2,10 +2,15 @@
 import { Image } from 'astro:assets';
 import { site } from '../site.config';
 import award from '../assets/award.png';
+
+interface Props { variant?: 'desktop' | 'mobile' }
+const { variant = 'mobile' } = Astro.props;
+// Desktop: award first, then only the first two trust points.
+const points = variant === 'desktop' ? site.trust.slice(0, 2) : site.trust;
 ---
-<div class="proof">
+<div class:list={['proof', variant]}>
   <ul class="trust">
-    {site.trust.map((t) => (
+    {points.map((t) => (
       <li><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>{t}</li>
     ))}
   </ul>
@@ -23,6 +28,7 @@ import award from '../assets/award.png';
 
 <style>
   .proof{display:grid;gap:10px;max-width:520px}
+  .proof.desktop .award{order:-1}   /* award above the trust points on desktop */
   .trust{list-style:none;display:grid;grid-template-columns:1fr;gap:8px;margin:0;padding:0}
   @media (min-width:480px){.trust{grid-template-columns:1fr 1fr;gap:10px}}
   .trust li{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:12px;background:#fff;border:1px solid var(--line);
