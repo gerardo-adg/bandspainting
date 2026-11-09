@@ -2,6 +2,7 @@
 import { Image, getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Quiz from '../components/Quiz.astro';
+import Proof from '../components/Proof.astro';
 import { site } from '../site.config';
 import logo from '../assets/logo.png';
 import heroImg from '../assets/photos/hero-light.jpg';
@@ -29,16 +30,14 @@ const steps = [
         <p class="pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>{site.serviceArea}</p>
         <h1>Get Your Free<br /><em>Painting Estimate</em></h1>
         <p class="lead">Painting, staining &amp; repairs · 3 quick questions</p>
-        <ul class="trust">
-          {site.trust.map((t) => (
-            <li><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>{t}</li>
-          ))}
-        </ul>
+        <div class="proof-desk"><Proof /></div>
       </div>
 
       <div class="card" id="start">
         <Quiz />
       </div>
+
+      <div class="proof-mob"><Proof /></div>
     </div>
   </section>
 
@@ -97,11 +96,10 @@ const steps = [
     text-decoration:underline;text-decoration-color:var(--brand);text-decoration-thickness:.07em;
     text-underline-offset:.14em;text-decoration-skip-ink:auto}
   .lead{margin-top:14px;font-size:clamp(16px,4vw,19px);color:#3d4757;font-weight:500}
-  .trust{list-style:none;display:none;margin-top:30px;grid-template-columns:1fr 1fr;gap:10px;max-width:520px}
-  .trust li{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:12px;background:#fff;border:1px solid var(--line);
-    box-shadow:0 6px 14px -12px rgba(13,22,38,.4);font-weight:700;font-size:14.5px;line-height:1.25;color:var(--ink)}
-  .trust svg{flex:none;width:20px;height:20px;padding:3.5px;border-radius:50%;background:var(--brand);fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-  @media (min-width:900px){.trust{display:grid}}
+  .proof-desk{display:none;margin-top:30px}
+  .proof-mob{display:block}
+  .proof-mob :global(.proof){margin:0 auto}
+  @media (min-width:900px){.proof-desk{display:block}.proof-mob{display:none}}
 
   .card{background:#fff;color:var(--ink);border-radius:24px;padding:22px 18px 22px;scroll-margin-top:12px;
     box-shadow:0 0 0 1px rgba(13,22,38,.07),0 2px 4px rgba(13,22,38,.04),0 40px 80px -36px rgba(13,22,38,.45)}
