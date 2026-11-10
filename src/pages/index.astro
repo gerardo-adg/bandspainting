@@ -99,6 +99,14 @@ const steps = [
     text-decoration:underline;text-decoration-color:var(--brand);text-decoration-thickness:.07em;
     text-underline-offset:.14em;text-decoration-skip-ink:auto}
   .lead{margin-top:14px;font-size:clamp(16px,4vw,19px);color:#3d4757;font-weight:500}
+  /* Mobile only: navy hero */
+  @media (max-width:899px){
+    .hero{background-color:var(--navy);
+      background-image:linear-gradient(180deg,rgba(7,23,43,.88) 0%,rgba(7,23,43,.94) 45%,var(--navy) 80%),var(--hero-sm)}
+    h1{color:#fff}
+    h1 em{color:#4da3e8;text-decoration-color:#4da3e8}
+    .lead{color:rgba(255,255,255,.82)}
+  }
   .proof-desk{display:none;margin-top:20px}
   .proof-mob{display:block}
   .proof-mob :global(.proof){margin:0 auto}
